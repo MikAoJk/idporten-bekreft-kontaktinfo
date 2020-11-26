@@ -10,10 +10,10 @@ import no.digdir.krr.bekreft.kontaktinfo.service.PARService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,6 +37,7 @@ public class PAREndpoint {
     @PostMapping("/par")
     @ResponseBody
     public ResponseEntity<PARResponse> par(@RequestBody PARRequest parRequest) {
+        log.warn("Behandler par");
         String requestUri = parService.generateRequestUri();
         kontaktinfoCache.putParRequest(requestUri, parRequest);
         kontaktinfoCache.putPid(requestUri, parRequest.getPid());
@@ -45,7 +46,8 @@ public class PAREndpoint {
     }
 
     @GetMapping("/authorize")
-    public Object authorize(@PathVariable String requestUri) {
+    public Object authorize(@RequestParam String requestUri) {
+        log.warn("Behandler authorize med requestUri={}", requestUri);
         String uuid = requestUri;
         PARRequest parRequest = kontaktinfoCache.getParRequest(uuid);
         return contactInfoController.confirm(kontaktinfoCache.getPid(uuid), parRequest.getGotoParam(), parRequest.getLocale());
@@ -53,6 +55,7 @@ public class PAREndpoint {
 
     @PostMapping("/token")
     public Object token(@RequestBody String code) {
+        log.warn("Behandler token med code={}", code);
         PersonResource kontaktinfo = kontaktinfoCache.getPersonResource(code);
         String jwt = parService.makeJwt(kontaktinfo.getPersonIdentifikator(), kontaktinfo.getEmail(), kontaktinfo.getMobile());
         kontaktinfoCache.removePersonResource(code);

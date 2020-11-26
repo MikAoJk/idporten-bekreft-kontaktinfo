@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .cors(withDefaults())
             .csrf()
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            .ignoringAntMatchers("/api/par", "/api/token", "/api/authorize")
         .and()
             .headers()
             .httpStrictTransportSecurity()
