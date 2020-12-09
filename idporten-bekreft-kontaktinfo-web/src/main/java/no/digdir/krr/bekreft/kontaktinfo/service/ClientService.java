@@ -48,7 +48,10 @@ public class ClientService {
                     krrConfigProvider.getTipDaysUser());
         } else {
             return PersonResource.builder()
-                    .personIdentifikator(fnr).newUser(true).build();
+                    .personIdentifikator(fnr)
+                    .newUser(true)
+                    .status(PersonResource.NOT_REGISTERED)
+                    .build();
         }
     }
 

@@ -48,16 +48,15 @@ public class PAREndpoint {
     @GetMapping("/authorize")
     public Object authorize(@RequestParam String requestUri) {
         log.warn("Behandler authorize med requestUri={}", requestUri);
-        String uuid = requestUri;
-        PARRequest parRequest = kontaktinfoCache.getParRequest(uuid);
-        return contactInfoController.confirm(kontaktinfoCache.getPid(uuid), parRequest.getGotoParam(), parRequest.getLocale());
+        PARRequest parRequest = kontaktinfoCache.getParRequest(requestUri);
+        return contactInfoController.confirm(kontaktinfoCache.getPid(requestUri), parRequest.getGotoParam(), parRequest.getLocale());
     }
 
     @PostMapping("/token")
     public Object token(@RequestBody String code) {
         log.warn("Behandler token med code={}", code);
         PersonResource kontaktinfo = kontaktinfoCache.getPersonResource(code);
-        String jwt = parService.makeJwt(kontaktinfo.getPersonIdentifikator(), kontaktinfo.getEmail(), kontaktinfo.getMobile());
+        String jwt = parService.makeJwt(kontaktinfo);
         kontaktinfoCache.removePersonResource(code);
         return jwt;
     }
