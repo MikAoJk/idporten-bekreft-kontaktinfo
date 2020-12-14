@@ -58,6 +58,18 @@
 
         <dependency>
             <groupId>no.difi.common</groupId>
+            <artifactId>idporten-lib-logging</artifactId>
+            <version>${eid.common.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.activemq</groupId>
+                    <artifactId>activemq-client</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>no.difi.common</groupId>
             <artifactId>idporten-lib-common-pojo</artifactId>
         </dependency>
 

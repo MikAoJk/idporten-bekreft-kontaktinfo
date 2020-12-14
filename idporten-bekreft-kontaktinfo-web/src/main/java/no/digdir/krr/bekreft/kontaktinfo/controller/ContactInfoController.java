@@ -1,6 +1,7 @@
 package no.digdir.krr.bekreft.kontaktinfo.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import no.digdir.krr.bekreft.kontaktinfo.audit.AuditService;
 import no.digdir.krr.bekreft.kontaktinfo.domain.ContactInfoResource;
 import no.digdir.krr.bekreft.kontaktinfo.domain.PersonResource;
 import no.digdir.krr.bekreft.kontaktinfo.service.ClientService;
@@ -16,6 +17,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 @Controller
 @Slf4j
@@ -42,7 +44,7 @@ public class ContactInfoController {
     @Value("${featureswitch.bekreft_kontaktinfo_enabled}")
     private Boolean bekreftKontaktinfoEnabled;
 
-    public ContactInfoController(ClientService clientService,KontaktinfoCache kontaktinfoCache) {
+    public ContactInfoController(ClientService clientService, KontaktinfoCache kontaktinfoCache, AuditService auditService) {
         this.clientService = clientService;
         this.kontaktinfoCache = kontaktinfoCache;
     }

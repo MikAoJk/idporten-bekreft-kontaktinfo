@@ -87,7 +87,14 @@ cache:
     ttl-in-s: 300
     transport:
       file:
-        location: 'c:/etc/opt/idporten-oidc-provider/'
+        location: 'c:/etc/opt/idporten-oidc-provider/' # Windows
+        #location: '/etc/idporten-oidc-provider/' # Mac
+
+log:
+  # Audit config
+  audit:
+    dir: /var/log/idporten-bekreft-kontaktinfo/audit/
+    file: audit.log
 
 jwt:
   iss: idporten-bekreft-kontaktinfo
