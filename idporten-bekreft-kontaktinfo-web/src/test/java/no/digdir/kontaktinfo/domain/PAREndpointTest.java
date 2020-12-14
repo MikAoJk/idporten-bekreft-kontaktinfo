@@ -1,12 +1,13 @@
 package no.digdir.kontaktinfo.domain;
 
 import no.digdir.kontaktinfo.config.JwtConfigProvider;
+import no.digdir.kontaktinfo.config.OpenIDConnectConfigProvider;
 import no.digdir.kontaktinfo.controller.ContactInfoController;
 import no.digdir.kontaktinfo.crypto.KeyProvider;
 import no.digdir.kontaktinfo.crypto.KeyStoreProvider;
 import no.digdir.kontaktinfo.rest.PAREndpoint;
 import no.digdir.kontaktinfo.service.KontaktinfoCache;
-import no.digdir.kontaktinfo.service.PARService;
+import no.idporten.sdk.oidcserver.OpenIDConnectIntegration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,9 +30,11 @@ public class PAREndpointTest {
     @MockBean
     ContactInfoController contactInfoController;
     @MockBean
-    PARService parService;
-    @MockBean
     KontaktinfoCache kontaktinfoCache;
+    @MockBean
+    OpenIDConnectIntegration openIDConnectSdk;
+    @MockBean
+    OpenIDConnectConfigProvider openIDConnectConfigProvider;
     @MockBean
     JwtConfigProvider jwtConfigProvider;
     @MockBean
@@ -46,25 +48,6 @@ public class PAREndpointTest {
     public void feilUrlFinnesIkke() throws Exception {
         mockMvc.perform(get("/api/monkey"))
                 .andExpect(status().isNotFound());
-    }
-
-    @Test
-    public void authorize() throws Exception {
-        when(kontaktinfoCache.getParRequest(REQUEST_URI))
-                .thenReturn(PARRequest.builder()
-                        .gotoParam(GOTO_URL)
-                        .locale(LOCALE)
-                        .build());
-
-        when(kontaktinfoCache.getPid(REQUEST_URI))
-                .thenReturn(PID);
-
-        when(contactInfoController.confirm(PID, GOTO_URL, LOCALE))
-                .thenReturn(ContactInfoController.redirect(GOTO_URL));
-
-        mockMvc.perform(get("/api/authorize")
-                .queryParam("requestUri", REQUEST_URI))
-                .andExpect(status().is3xxRedirection());
     }
 
 }

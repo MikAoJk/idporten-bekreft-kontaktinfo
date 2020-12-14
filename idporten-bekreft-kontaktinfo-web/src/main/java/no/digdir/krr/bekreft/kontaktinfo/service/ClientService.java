@@ -21,8 +21,6 @@ import java.util.Objects;
 @Service
 @Slf4j
 public class ClientService {
-    public static List<MediaType> ACCEPT_MEDIA_TYPES = Collections.singletonList(MediaType.APPLICATION_JSON);
-
     private final KrrConfigProvider krrConfigProvider;
     private final KontaktregisterClient kontaktregisterClient;
 
@@ -59,7 +57,7 @@ public class ClientService {
         UserDetailResource userDetail = kontaktregisterClient.getUser(fnr);
 
         if (userDetail == null) {
-            throw new ResourceNotFoundException("could not get response from kontaktregisteret");
+            throw new ResourceNotFoundException("Could not retrieve user resource from Kontaktregisteret");
         }
 
         if (userDetail.getUser() != null) {

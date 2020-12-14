@@ -1,9 +1,17 @@
 project:
   version: 1.0
 
-par:
-  cache:
-    ttl-in-s: 120
+oidc-sdk:
+  par_lifetime_seconds: 60
+  authorization_lifetime_seconds: 60
+  issuer: 'https://eid-atest-web01.dmz.local/idporten-bekreft-kontaktinfo/api/'
+  redirect_uri: 'http://localhost:8888/idporten-oidc-client/authorize/response'
+  client_id: openam
+  secret: password
+  scope: openid
+  internal_id: kontaktinfo
+  acr: Level3
+  locale: nb
 
 cache:
   local:

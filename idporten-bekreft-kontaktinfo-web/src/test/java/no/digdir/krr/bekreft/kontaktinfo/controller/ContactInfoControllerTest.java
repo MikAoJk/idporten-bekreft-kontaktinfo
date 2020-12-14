@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.net.URLDecoder;
 
+import static no.digdir.kontaktinfo.controller.ContactInfoController.INGEN_ENDRING;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -70,7 +71,7 @@ public class ContactInfoControllerTest {
                 .thenReturn(null);
 
         String nextDestination = contactInfoController.getRedirectPath(fnr);
-        assertNull(nextDestination);
+        assertEquals(INGEN_ENDRING, nextDestination);
     }
 
     @Test
@@ -157,7 +158,7 @@ public class ContactInfoControllerTest {
         personResource.setShouldUpdateKontaktinfo(false);
 
         String path = contactInfoController.buildRedirectPath(personResource);
-        assertNull(path);
+        assertEquals(INGEN_ENDRING, path);
     }
 
     private UserDetailResource createUserDetailResource(String ssn, String email, String mobile) {

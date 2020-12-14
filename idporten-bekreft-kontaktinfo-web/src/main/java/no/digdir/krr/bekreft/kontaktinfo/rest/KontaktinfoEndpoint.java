@@ -27,15 +27,15 @@ public class KontaktinfoEndpoint {
         PersonResource personResource = kontaktinfoCache.getPersonResource(updatedResource.getCode());
 
         if (personResource == null) {
-            throw new UnauthorizedException("UUID is not valid");
+            throw new UnauthorizedException("Could not retrieve resource.");
         }
 
         clientService.updateKontaktinfo(personResource.getPersonIdentifikator(), updatedResource.getEmail(), updatedResource.getMobile());
-        ContactInfoResource responseResource = prepareAndCacheResponseResource(updatedResource, personResource);
-        return new ResponseEntity<ContactInfoResource>(responseResource, HttpStatus.OK);
+        ContactInfoResource responseResource = updateAndCacheResponseResource(updatedResource, personResource);
+        return new ResponseEntity<>(responseResource, HttpStatus.OK);
     }
 
-    private ContactInfoResource prepareAndCacheResponseResource(ContactInfoResource updatedResource, PersonResource personResource) {
+    private ContactInfoResource updateAndCacheResponseResource(ContactInfoResource updatedResource, PersonResource personResource) {
         personResource.setEmail(updatedResource.getEmail());
         personResource.setMobile(updatedResource.getMobile());
         String code = kontaktinfoCache.putPersonResource(personResource);
