@@ -90,6 +90,18 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>javax.jms-api</artifactId>
+            <version>${javax.jms-api.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.zalando</groupId>
             <artifactId>problem</artifactId>
             <version>${problem.version}</version>

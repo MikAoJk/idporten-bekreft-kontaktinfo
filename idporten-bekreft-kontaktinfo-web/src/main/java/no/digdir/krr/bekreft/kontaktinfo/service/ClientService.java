@@ -3,7 +3,7 @@ package no.digdir.krr.bekreft.kontaktinfo.service;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.kontaktregister.dto.UserDetailResource;
 import no.difi.kontaktregister.dto.UserResource;
-import no.digdir.krr.bekreft.kontaktinfo.audit.AuditService;
+import no.digdir.krr.bekreft.kontaktinfo.logging.audit.AuditService;
 import no.digdir.krr.bekreft.kontaktinfo.config.KrrConfigProvider;
 import no.digdir.krr.bekreft.kontaktinfo.domain.PersonResource;
 import no.digdir.krr.bekreft.kontaktinfo.integration.KontaktregisterClient;

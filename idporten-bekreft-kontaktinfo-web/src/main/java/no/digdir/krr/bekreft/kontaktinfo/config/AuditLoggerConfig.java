@@ -1,33 +1,30 @@
-package no.digdir.krr.bekreft.kontaktinfo.audit;
+package no.digdir.krr.bekreft.kontaktinfo.config;
 
+import lombok.Data;
 import no.idporten.log.audit.AuditLogger;
 import no.idporten.log.audit.AuditLoggerELFImpl;
 import no.idporten.log.elf.ELFWriter;
 import no.idporten.log.elf.FileRollerDailyImpl;
 import no.idporten.log.elf.WriterCreator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
 @Configuration
-public class AuditLoggerProvider {
+@Data
+public class AuditLoggerConfig {
 
-    /*
-    TODO: dette burde fungere men får feil
-    @Value("${application.logging.audit.dir}")
-    private String auditLogDir;
+    @Value("${log.audit.dir}")
+    private String logDir;
 
-    @Value("${application.logging.audit.file}")
-    private String auditLogFile;
-     */
-
-    private String auditLogDir = "/var/log/idporten-bekreft-kontaktinfo/audit/";
-    private String auditLogFile = "audit.log";
+    @Value("${log.audit.file}")
+    private String logFile;
 
     @Bean
     public AuditLogger auditLogger() {
+
         ELFWriter elfWriter = new ELFWriter(
-                new FileRollerDailyImpl(auditLogDir, auditLogFile),
+                new FileRollerDailyImpl(logDir, logFile),
                 new WriterCreator()
         );
         AuditLoggerELFImpl logger = new AuditLoggerELFImpl();
@@ -35,4 +32,5 @@ public class AuditLoggerProvider {
         logger.setDataSeparator("|");
         return logger;
     }
+
 }

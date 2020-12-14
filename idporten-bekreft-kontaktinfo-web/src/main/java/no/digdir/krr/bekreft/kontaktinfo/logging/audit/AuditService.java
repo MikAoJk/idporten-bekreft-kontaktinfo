@@ -1,4 +1,4 @@
-package no.digdir.krr.bekreft.kontaktinfo.audit;
+package no.digdir.krr.bekreft.kontaktinfo.logging.audit;
 
 import no.idporten.log.audit.AuditLogger;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,7 @@ public class AuditService {
 
     public void auditContactInfoCreate(String ssn, String email, String mobile) {
         auditLogger.log(
-                AuditID.CREATE.auditId(),
+                AuditID.REGISTER.auditId(),
                 notApplicable(ssn),
                 notApplicable(email),
                 notApplicable(mobile)

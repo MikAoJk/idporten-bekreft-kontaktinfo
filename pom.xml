@@ -33,6 +33,7 @@
         <spring-boot-dependencies.version>2.2.7.RELEASE</spring-boot-dependencies.version>
         <problem.version>0.24.0</problem.version>
         <problem-spring.version>0.25.2</problem-spring.version>
+        <javax.jms-api.version>2.0.1</javax.jms-api.version>
         <logstash.logback.version>5.2</logstash.logback.version>
         <!-- frontend build tools -->
         <node.version>v14.15.0</node.version>
@@ -43,6 +44,7 @@
         <eid.common.version>2020-06-29-1322-841ed34</eid.common.version>
         <idporten.common.version>2020-05-28-1255-7f7fe4c</idporten.common.version>
         <infinispan-spring-boot-starter-embedded-version>2.1.7.Final</infinispan-spring-boot-starter-embedded-version>
+        <activemq.version>5.15.9</activemq.version>
     </properties>
 
     <!-- Version management of common dependencies. -->
@@ -68,6 +70,7 @@
                 <artifactId>infinispan-spring-boot-starter-embedded</artifactId>
                 <version>${infinispan-spring-boot-starter-embedded-version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 

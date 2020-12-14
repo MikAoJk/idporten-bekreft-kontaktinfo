@@ -96,6 +96,10 @@ log:
     dir: /var/log/idporten-bekreft-kontaktinfo/audit/
     file: audit.log
 
+  event:
+    jms-url: tcp://eid-systest-admin01.dmz.local:61616
+    jms-queue: logqueue
+
 jwt:
   iss: idporten-bekreft-kontaktinfo
   aud: idporten

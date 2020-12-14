@@ -1,11 +1,11 @@
-package no.digdir.krr.bekreft.kontaktinfo.audit;
+package no.digdir.krr.bekreft.kontaktinfo.logging.audit;
 
 public enum AuditID {
 
     CONFIRM(1,"CONFIRM"),
     UPDATE_EMAIL(2,"UPDATE-EMAIL"),
     UPDATE_MOBILE(3,"UPDATE-MOBILE"),
-    CREATE(4,"CREATE");
+    REGISTER(4,"REGISTER");
 
     static final String AUDIT_ID_FORMAT ="IDPORTEN-BEKREFT-KONTAKTINFO-%d-%s";
     final String auditId;
