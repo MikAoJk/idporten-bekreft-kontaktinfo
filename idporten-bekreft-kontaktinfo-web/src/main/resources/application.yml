@@ -97,8 +97,8 @@ log:
     file: audit.log
 
   event:
-    jms-url: tcp://eid-systest-admin01.dmz.local:61616
-    jms-queue: logqueue
+    jmsUrl: tcp://eid-systest-admin01.dmz.local:61616
+    jmsQueue: logqueue
 
 jwt:
   iss: idporten-bekreft-kontaktinfo
