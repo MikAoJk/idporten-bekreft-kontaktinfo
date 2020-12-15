@@ -14,10 +14,10 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class AuditLoggerConfig {
 
-    @Value("${log.audit.dir:#{null}}")
+    @Value("${log.auditlog.dir:#{null}}")
     private String logDir;
 
-    @Value("${log.audit.file:#{null}}")
+    @Value("${log.auditlog.file:#{null}}")
     private String logFile;
 
     @Bean
