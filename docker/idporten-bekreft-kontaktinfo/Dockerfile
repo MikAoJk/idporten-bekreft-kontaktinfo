@@ -34,7 +34,6 @@ COPY /jar/${ARTIFACT_ID}.jar /usr/local/webapps/application.jar
 COPY --from=config /opt/${APPLICATION}/${ARTIFACT_ID}.conf /usr/local/webapps/application.conf
 COPY entrypoint.sh /entrypoint.sh
 
-ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006
 
 HEALTHCHECK --interval=10s --start-period=10s --retries=15 \
     CMD { curl -f --max-time 10 http://localhost:8080/health; } || exit 1

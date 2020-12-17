@@ -61,12 +61,14 @@ public class ContactInfoController {
     private static final String CODE_PARAM = "code";
     private static final String FRONTEND_GOTO_PARAM = "goto";
     private static final String IDPORTEN_GOTO_PARAM = "gotoParam";
+
+    @Value("${featureswitch.bekreft_kontaktinfo_enabled}")
+    private Boolean bekreftKontaktinfoEnabled;
+
     private final ClientService clientService;
     private final KontaktinfoCache kontaktinfoCache;
     private final OpenIDConnectIntegration openIDConnectSdk;
     private final EventService eventService;
-    @Value("${featureswitch.bekreft_kontaktinfo_enabled}")
-    private Boolean bekreftKontaktinfoEnabled;
 
     static ResponseEntity<Void> redirect(String location) {
         return ResponseEntity

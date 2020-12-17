@@ -5,7 +5,6 @@ services:
     image: ${REGISTRY}/idporten-bekreft-kontaktinfo:${VERSION}
     ports:
       - 8080
-      - 5009:5006
     extra_hosts:
       - "eid-elk-app01.dmz.local:10.243.220.21"
     configs:

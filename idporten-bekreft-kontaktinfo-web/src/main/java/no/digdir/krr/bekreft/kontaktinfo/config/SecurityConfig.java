@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .maxAgeInSeconds(TimeUnit.DAYS.toSeconds(365))
                 .and()
                 .frameOptions().sameOrigin() // Set Header X-Frame-Option to SAMEORIGIN
-                .contentSecurityPolicy("object-src https://registration.minid.digdir.no; report-uri /csp-report-endpoint")
+                .contentSecurityPolicy("object-src " + contentsecuritypolicy_url + "; report-uri /csp-report-endpoint")
                 .and()
                 .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)
                 .and()
