@@ -2,12 +2,15 @@ package no.digdir.krr.bekreft.kontaktinfo.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import no.digdir.krr.bekreft.kontaktinfo.logging.audit.AuditService;
 import no.digdir.krr.bekreft.kontaktinfo.domain.ContactInfoResource;
 import no.digdir.krr.bekreft.kontaktinfo.domain.PersonResource;
 import no.digdir.krr.bekreft.kontaktinfo.logging.event.EventService;
 import no.digdir.krr.bekreft.kontaktinfo.service.ClientService;
 import no.digdir.krr.bekreft.kontaktinfo.service.KontaktinfoCache;
+import no.idporten.sdk.oidcserver.OpenIDConnectIntegration;
+import no.idporten.sdk.oidcserver.protocol.Authorization;
+import no.idporten.sdk.oidcserver.protocol.AuthorizationResponse;
+import no.idporten.sdk.oidcserver.protocol.PushedAuthorizationRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +31,7 @@ import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-import static no.digdir.kontaktinfo.rest.PAREndpoint.SESSION_ATTRIBUTE_AUTHORIZATION_REQUEST;
+import static no.digdir.krr.bekreft.kontaktinfo.rest.PAREndpoint.SESSION_ATTRIBUTE_AUTHORIZATION_REQUEST;
 
 @Controller
 @Slf4j
@@ -39,15 +42,16 @@ public class ContactInfoController {
     public static final String DIGITALCONTACTREGISTER_EMAIL = "epostadresse";
     public static final String DIGITALCONTACTREGISTER_MOBILE = "mobiltelefonnummer";
     public static final String DIGITALCONTACTREGISTER_PID = "pid";
-    public static final String DIGITALCONTACTREGISTER_POSTBOXOPERATOR = "postboxoperator";
-    public static final String DIGITALCONTACTREGISTER_RESERVED = "reservert";
-    public static final String DIGITALCONTACTREGISTER_STATUS = "registerstatus";
+    public static final String DIGITALCONTACTREGISTER_POSTBOXOPERATOR = "postboksoperator";
+    public static final String DIGITALCONTACTREGISTER_RESERVED = "reservasjon";
+    public static final String DIGITALCONTACTREGISTER_STATUS = "status";
+    static final String INGEN_ENDRING = "nop";
     private static final String APP_CONTEXT_PATH = "/idporten-bekreft-kontaktinfo";
-    public static final String AUTOSUBMIT_PAGE = APP_CONTEXT_PATH + "/api/autosubmit";
-    public static final String CREATE_PAGE = APP_CONTEXT_PATH + "/create";
-    public static final String CREATE_EMAIL_PAGE = APP_CONTEXT_PATH + "/createEmail";
-    public static final String CREATE_MOBILE_PAGE = APP_CONTEXT_PATH + "/createMobile";
-    public static final String CONFIRM_PAGE = APP_CONTEXT_PATH;
+    static final String AUTOSUBMIT_PAGE = APP_CONTEXT_PATH + "/api/autosubmit";
+    static final String CREATE_PAGE = APP_CONTEXT_PATH + "/create";
+    static final String CREATE_EMAIL_PAGE = APP_CONTEXT_PATH + "/createEmail";
+    static final String CREATE_MOBILE_PAGE = APP_CONTEXT_PATH + "/createMobile";
+    static final String CONFIRM_PAGE = APP_CONTEXT_PATH;
     private static final String COMPLETE_ENDPOINT = "/completeAuthorize";
     public static final String COMPLETE_AUTHORIZE_PAGE = APP_CONTEXT_PATH + "/api" + COMPLETE_ENDPOINT;
     private static final String AMR = "kontaktinfo";
@@ -57,16 +61,12 @@ public class ContactInfoController {
     private static final String CODE_PARAM = "code";
     private static final String FRONTEND_GOTO_PARAM = "goto";
     private static final String IDPORTEN_GOTO_PARAM = "gotoParam";
-    static final String INGEN_ENDRING = "nop";
     private final ClientService clientService;
     private final KontaktinfoCache kontaktinfoCache;
     private final OpenIDConnectIntegration openIDConnectSdk;
+    private final EventService eventService;
     @Value("${featureswitch.bekreft_kontaktinfo_enabled}")
     private Boolean bekreftKontaktinfoEnabled;
-
-    private final ClientService clientService;
-    private final KontaktinfoCache kontaktinfoCache;
-    private final EventService eventService;
 
     static ResponseEntity<Void> redirect(String location) {
         return ResponseEntity
@@ -203,7 +203,7 @@ public class ContactInfoController {
         }
     }
 
-    private ResponseEntity<Void> createAuthorizationResponse(HttpServletRequest request, PersonResource personResource) {
+    ResponseEntity<Void> createAuthorizationResponse(HttpServletRequest request, PersonResource personResource) {
         PushedAuthorizationRequest authorizationRequest = (PushedAuthorizationRequest) request.getSession().getAttribute(SESSION_ATTRIBUTE_AUTHORIZATION_REQUEST);
         String postboxOperator = personResource.getDigitalPost() == null
                 ? null

@@ -1,12 +1,12 @@
-package no.digdir.kontaktinfo.domain;
+package no.digdir.krr.bekreft.kontaktinfo.domain;
 
-import no.digdir.kontaktinfo.config.JwtConfigProvider;
-import no.digdir.kontaktinfo.config.OpenIDConnectConfigProvider;
-import no.digdir.kontaktinfo.controller.ContactInfoController;
-import no.digdir.kontaktinfo.crypto.KeyProvider;
-import no.digdir.kontaktinfo.crypto.KeyStoreProvider;
-import no.digdir.kontaktinfo.rest.PAREndpoint;
-import no.digdir.kontaktinfo.service.KontaktinfoCache;
+import no.digdir.krr.bekreft.kontaktinfo.config.JwtConfigProvider;
+import no.digdir.krr.bekreft.kontaktinfo.config.OpenIDConnectConfigProvider;
+import no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController;
+import no.digdir.krr.bekreft.kontaktinfo.crypto.KeyProvider;
+import no.digdir.krr.bekreft.kontaktinfo.crypto.KeyStoreProvider;
+import no.digdir.krr.bekreft.kontaktinfo.rest.PAREndpoint;
+import no.digdir.krr.bekreft.kontaktinfo.service.KontaktinfoCache;
 import no.idporten.sdk.oidcserver.OpenIDConnectIntegration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,10 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(PAREndpoint.class)
 public class PAREndpointTest {
 
-    public static final String REQUEST_URI = "urn:kontaktinfo:4bD7kHmUBEl4bILyGNbSEE8r6DE_9M4NYE8mkhnIBQM";
-    private static final String GOTO_URL = "http://example.com";
-    private static final String LOCALE = "nb";
-    private static final String PID = "007";
     @MockBean
     ContactInfoController contactInfoController;
     @MockBean

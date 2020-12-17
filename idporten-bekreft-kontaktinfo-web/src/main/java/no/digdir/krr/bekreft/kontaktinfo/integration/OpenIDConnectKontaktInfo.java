@@ -1,4 +1,4 @@
-package no.digdir.kontaktinfo.integration;
+package no.digdir.krr.bekreft.kontaktinfo.integration;
 
 import no.difi.validation.SsnValidator;
 import no.idporten.sdk.oidcserver.OAuth2Exception;
@@ -8,7 +8,7 @@ import no.idporten.sdk.oidcserver.config.OpenIDConnectSdkConfiguration;
 import no.idporten.sdk.oidcserver.protocol.PushedAuthorizationRequest;
 import org.springframework.http.HttpStatus;
 
-import static no.digdir.kontaktinfo.controller.ContactInfoController.DIGITALCONTACTREGISTER_PID;
+import static no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController.DIGITALCONTACTREGISTER_PID;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class OpenIDConnectKontaktInfo extends OpenIDConnectIntegrationBase {

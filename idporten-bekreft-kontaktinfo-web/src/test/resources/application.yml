@@ -4,14 +4,15 @@ project:
 oidc-sdk:
   par_lifetime_seconds: 60
   authorization_lifetime_seconds: 60
-  issuer: 'https://eid-atest-web01.dmz.local/idporten-bekreft-kontaktinfo/api/'
-  redirect_uri: 'http://localhost:8888/idporten-oidc-client/authorize/response'
-  client_id: openam
-  secret: password
-  scope: openid
   internal_id: kontaktinfo
+  issuer: 'https://eid-atest-web01.dmz.local/idporten-bekreft-kontaktinfo/api/'
   acr: Level3
   locale: nb
+  clients:
+    - client_id: openam
+      clientSecret: password
+      redirect_uris: ['https://eid-atest-web01.dmz.local:443/opensso/UI/kontaktinforesponse']
+      scopes: [openid]
 
 cache:
   local:

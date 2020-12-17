@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import static no.digdir.kontaktinfo.controller.ContactInfoController.COMPLETE_AUTHORIZE_PAGE;
-import static no.digdir.kontaktinfo.controller.ContactInfoController.DIGITALCONTACTREGISTER_PID;
+import static no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController.COMPLETE_AUTHORIZE_PAGE;
+import static no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController.DIGITALCONTACTREGISTER_PID;
 
 @RestController
 @RequiredArgsConstructor

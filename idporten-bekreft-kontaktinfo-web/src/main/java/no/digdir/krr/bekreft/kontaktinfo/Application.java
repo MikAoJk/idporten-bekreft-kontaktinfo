@@ -1,13 +1,13 @@
 package no.digdir.krr.bekreft.kontaktinfo;
 
+import no.digdir.krr.bekreft.kontaktinfo.config.OpenIDConnectConfigProvider;
+import no.digdir.krr.bekreft.kontaktinfo.integration.OpenIDConnectKontaktInfo;
 import no.digdir.krr.bekreft.kontaktinfo.config.JwtConfigProvider;
 import no.digdir.krr.bekreft.kontaktinfo.config.KrrConfigProvider;
 import no.digdir.krr.bekreft.kontaktinfo.crypto.KeyProvider;
 import no.digdir.krr.bekreft.kontaktinfo.crypto.KeyStoreProvider;
-import no.digdir.kontaktinfo.integration.OpenIDConnectKontaktInfo;
-import no.digdir.kontaktinfo.service.KontaktinfoCache;
+import no.digdir.krr.bekreft.kontaktinfo.service.KontaktinfoCache;
 import no.idporten.sdk.oidcserver.OpenIDConnectIntegration;
-import no.idporten.sdk.oidcserver.client.ClientMetadata;
 import no.idporten.sdk.oidcserver.config.OpenIDConnectSdkConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -52,13 +52,6 @@ public class Application {
         URI issuer = new URI(oidcConfigProvider.getIssuer());
         int parLifetimeSeconds = oidcConfigProvider.getParLifetimeSeconds();
         int authorizationLifetimeSeconds = oidcConfigProvider.getAuthorizationLifetimeSeconds();
-        String redirectUri = oidcConfigProvider.getRedirectUri();
-        ClientMetadata clientMetadata = ClientMetadata.builder()
-                .clientId(oidcConfigProvider.getClientId())
-                .clientSecret(oidcConfigProvider.getSecret())
-                .scope(oidcConfigProvider.getScope())
-                .redirectUri(redirectUri)
-                .build();
 
         OpenIDConnectSdkConfiguration sdkConfiguration = OpenIDConnectSdkConfiguration.builder()
                 .internalId(oidcConfigProvider.getInternalId())
@@ -70,7 +63,7 @@ public class Application {
                 .authorizationRequestLifetimeSeconds(parLifetimeSeconds)
                 .authorizationLifetimeSeconds(authorizationLifetimeSeconds)
                 .acrValue(oidcConfigProvider.getAcr())
-                .client(clientMetadata)
+                .clients(oidcConfigProvider.getClients())
                 .cache(kontaktinfoCache)
                 .keystore(keyStoreProvider.keyStore(), configProvider.getKeystore().getKeyAlias(), configProvider.getKeystore().getKeyPassword())
                 .uiLocale(oidcConfigProvider.getLocale())

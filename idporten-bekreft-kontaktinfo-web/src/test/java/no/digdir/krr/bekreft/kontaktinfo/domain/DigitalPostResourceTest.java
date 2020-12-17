@@ -1,4 +1,4 @@
-package no.digdir.kontaktinfo.domain;
+package no.digdir.krr.bekreft.kontaktinfo.domain;
 
 import no.difi.kontaktregister.dto.PostboxOperatorResource;
 import no.difi.kontaktregister.dto.PostboxResource;

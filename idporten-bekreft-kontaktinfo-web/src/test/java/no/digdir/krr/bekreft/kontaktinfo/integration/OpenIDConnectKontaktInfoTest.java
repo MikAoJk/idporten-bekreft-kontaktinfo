@@ -1,11 +1,11 @@
-package no.digdir.kontaktinfo.integration;
+package no.digdir.krr.bekreft.kontaktinfo.integration;
 
 import no.idporten.sdk.oidcserver.OAuth2Exception;
 import no.idporten.sdk.oidcserver.protocol.PushedAuthorizationRequest;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-import static no.digdir.kontaktinfo.controller.ContactInfoController.DIGITALCONTACTREGISTER_PID;
+import static no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController.DIGITALCONTACTREGISTER_PID;
 
 public class OpenIDConnectKontaktInfoTest {
 
