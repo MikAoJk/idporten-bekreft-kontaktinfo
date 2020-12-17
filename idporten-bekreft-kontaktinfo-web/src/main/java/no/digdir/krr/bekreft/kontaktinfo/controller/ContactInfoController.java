@@ -40,12 +40,13 @@ public class ContactInfoController {
 
     @Value("${featureswitch.bekreft_kontaktinfo_enabled}")
     private Boolean bekreftKontaktinfoEnabled;
-    
+
+
     private final ClientService clientService;
     private final KontaktinfoCache kontaktinfoCache;
     private final EventService eventService;
 
-    public ContactInfoController(ClientService clientService, KontaktinfoCache kontaktinfoCache, EventService eventService) {
+    public ContactInfoController(ClientService clientService, KontaktinfoCache kontaktinfoCache, AuditService auditService, EventService eventService) {
         this.clientService = clientService;
         this.kontaktinfoCache = kontaktinfoCache;
         this.eventService = eventService;
@@ -53,6 +54,8 @@ public class ContactInfoController {
 
     @GetMapping("/user/{fnr}/confirm")
     public Object confirm(@PathVariable("fnr") String fnr, @RequestParam(value = "goto") String gotoParam, @RequestParam(value = "locale") String locale) {
+
+        eventService.logUserHasArrived(fnr);
 
         if(!bekreftKontaktinfoEnabled){
             return redirectToDestination(AUTOSUBMIT_PAGE, gotoParam);
