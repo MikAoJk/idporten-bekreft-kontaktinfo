@@ -101,7 +101,7 @@ cache:
 
 log:
   # Audit config
-  audit:
+  auditlog:
     dir: /var/log/idporten-bekreft-kontaktinfo/audit/
     file: audit.log
 
